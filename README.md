@@ -5,6 +5,8 @@ Ultra-simple Claude Code hooks for Next.js projects. Designed to work seamlessly
 ## Features
 
 - **Security**: Blocks dangerous commands (rm -rf, .env access)
+- **Build Protection**: Blocks npm run build (Docker handles builds)
+- **Code Quality**: Automatic lint & prettier checks on file edits
 - **Logging**: All hook events logged to `logs/` directory
 - **TTS Notifications**: Audio alerts when Claude needs input or completes tasks
 - **Zero Configuration**: Works immediately after setup
@@ -54,12 +56,19 @@ your-project/
 ### Security Features
 - Blocks dangerous `rm -rf` commands
 - Prevents access to `.env` files
+- Blocks npm run build commands (Docker handles builds)
 - Logs all tool usage for audit
 
 ### Notifications
 - TTS audio alerts when Claude needs input
 - Completion notifications when tasks finish
 - Subagent completion tracking
+
+### Code Quality Features
+- **Lint Automation**: Runs ESLint on JavaScript/TypeScript file edits
+- **Prettier Automation**: Runs Prettier on JavaScript/TypeScript file edits
+- **Environment Control**: Enable/disable with environment variables
+- **Non-blocking**: Quality checks run in background, don't halt Claude
 
 ### Logging
 All hook events are logged in `logs/`:
@@ -92,7 +101,23 @@ ENGINEER_NAME="Your Name"
 ELEVENLABS_API_KEY=your_elevenlabs_key
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
+
+# Optional: Enable code quality checks
+HOOK_LINT_ENABLED=true
+HOOK_PRETTIER_ENABLED=true
 ```
+
+## Project Integration
+
+### Docker Workflow
+- **Build Protection**: Hooks block `npm run build` since Docker handles builds
+- **Development Server**: Use Docker for consistent development environment
+- **Code Quality**: Automatic lint/prettier checks maintain code standards
+
+### basic-next-setup Template
+- **Seamless Integration**: Hooks designed specifically for this template
+- **Zero Configuration**: Works immediately after setup
+- **Docker First**: Respects Docker-based development workflow
 
 ## Usage Tips
 
@@ -100,6 +125,7 @@ ANTHROPIC_API_KEY=your_anthropic_key
 2. **One Setup**: Run `setup.sh` once per project
 3. **Automatic Logging**: Check `logs/` directory for hook activity
 4. **Safe Operations**: Hooks prevent dangerous commands automatically
+5. **Code Quality**: Enable lint/prettier checks for automatic code formatting
 
 ## Troubleshooting
 
